@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OU 캐릭터 순위</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- 시작 -->
+  <section id="s-start" class="screen on">
+    <div class="logo">OU<span>3CC</span></div>
+    <h1 class="title">캐릭터 순위 매기기</h1>
+    <p class="lead">문장 240개와 단어 30개를 읽고<br>기아의 세 캐릭터에 1·2·3순위를 매겨 주세요.</p>
+    <div class="cast" id="cast"></div>
+    <label class="name-box">
+      <span>이름</span>
+      <input id="name" maxlength="20" autocomplete="off" placeholder="이름을 입력하세요">
+    </label>
+    <div class="btns">
+      <button id="btn-go" class="btn big">시작 ▶</button>
+      <button id="btn-reset" class="btn ghost" hidden>처음부터 다시</button>
+    </div>
+    <p class="note">하다가 창을 닫아도 같은 브라우저로 다시 열면 이어서 할 수 있어요.</p>
+  </section>
+
+  <!-- 스테이지 시작 / 클리어 -->
+  <section id="s-stage" class="screen">
+    <div class="stage-no" id="stage-no"></div>
+    <div class="stage-name" id="stage-name"></div>
+    <div class="stage-sub" id="stage-sub"></div>
+    <button id="btn-stage" class="btn big">시작 ▶</button>
+  </section>
+
+  <!-- 플레이 -->
+  <section id="s-play" class="screen">
+    <header class="hud">
+      <div class="hud-stage" id="hud-stage"></div>
+      <div class="hud-count" id="hud-count"></div>
+    </header>
+    <div class="road" id="road"></div>
+
+    <article class="card" id="card">
+      <div class="card-kind" id="card-kind"></div>
+      <div class="card-text" id="card-text"></div>
+      <div class="card-who" id="card-who"></div>
+    </article>
+
+    <div class="podium" id="podium">
+      <div class="slot s2" data-r="2"><div class="seat"></div><div class="step">2</div></div>
+      <div class="slot s1" data-r="1"><div class="seat"></div><div class="step">1</div></div>
+      <div class="slot s3" data-r="3"><div class="seat"></div><div class="step">3</div></div>
+    </div>
+
+    <div class="medals" id="medals"></div>
+
+    <footer class="controls">
+      <button id="btn-undo" class="btn ghost">◀ 한 수 무르기</button>
+      <button id="btn-clear" class="btn ghost">다시 고르기</button>
+      <button id="btn-next" class="btn" disabled>확정 ▶</button>
+    </footer>
+    <p class="keys">키보드: 1 · 2 · 3 고르기 · Enter 확정 · Backspace 다시 고르기</p>
+  </section>
+
+  <!-- 엔딩 -->
+  <section id="s-end" class="screen">
+    <div class="stage-no">ALL CLEAR</div>
+    <p class="lead">270장을 모두 마쳤어요.</p>
+    <div class="end-label">당신이 가장 많이 1위로 올린 캐릭터</div>
+    <div class="end-char" id="end-char"></div>
+    <button id="btn-xlsx" class="btn big">엑셀 받기 ⬇</button>
+    <button id="btn-back" class="btn ghost">마지막 카드로 돌아가기</button>
+  </section>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
