@@ -224,8 +224,10 @@ function showEnd() {
 }
 
 // ---------- 엑셀 ----------
-// 원본 시트 이름·열 그대로. 문장 시트는 선구자·모험가·혁신가 열(E~G)에 순위(1·2·3)를 넣고,
-// 단어 시트는 원본 다섯 열 뒤에 같은 세 열을 붙인다.
+// 원본 시트 이름·열 순서를 따른다. 문장 시트는 선구자·모험가·혁신가 열에 순위(1·2·3)를 넣고,
+// 단어 시트는 원본 열 뒤에 같은 세 열을 붙인다. DROP 열은 뺀다.
+const DROP = ['탱커', '힐러', '일루저니스트', '프로페서', '발언자(ko)', '연대', '출처',
+              '낱말1(ko)', '낱말2(ko)', '낱말3(ko)', '낱말4(ko)', '캐릭터', '출처 매체', '출처 링크', '원문'];
 function downloadXlsx() {
   const wb = XLSX.utils.book_new();
   const rankOf = (i, col) => {
@@ -247,7 +249,10 @@ function downloadXlsx() {
         return o;
       });
     }
-    const ws = XLSX.utils.aoa_to_sheet([header, ...rows].map(r => r.map(v => v ?? '')));
+    // 결과 엑셀에는 순위와 문장·단어만 남긴다
+    const keep = header.map((h, k) => !DROP.includes(h) ? k : -1).filter(k => k >= 0);
+    const pickCols = r => keep.map(k => r[k]);
+    const ws = XLSX.utils.aoa_to_sheet([header, ...rows].map(r => pickCols(r).map(v => v ?? '')));
     XLSX.utils.book_append_sheet(wb, ws, src.sheet);
   });
   const now = new Date();
